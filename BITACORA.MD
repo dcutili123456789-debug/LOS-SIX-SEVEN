@@ -1,0 +1,3 @@
+# BITACORA DE LOS SIX SEVEN
+## 12 DE NOVIEMBRE DE 2026
+Este proyecto consiste en el diseño de un sistema de gestión para la tercera edad, cuyo objetivo es organizar de forma digital la atención de los adultos mayores. El sistema permitirá registrar el historial clínico de cada paciente y controlar los suministros médicos y de higiene, para facilitar el trabajo del personal y mejorar la calidad del cuidado.
