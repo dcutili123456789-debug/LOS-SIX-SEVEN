@@ -10,4 +10,4 @@ Este proyecto consiste en el diseño de un sistema de gestión para la tercera e
 | 1 | Deivid Jesep Mallea | product owner/developer | josepmallea62 |
 | 2 | Pablo Mateo Camacho Gonzales | lider de documento/developer| thmtx |
 | 3 | Diego Cutilli Condori | scrum master/developer| dcutilli123456789 |
-| 4 | Jhanio Raul Suxo | developer | No se sabe |
+| 4 | Jhanio Raul Suxo | developer | jhanniorm0104 |
