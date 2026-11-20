@@ -1,0 +1,42 @@
+USE gestion_tercera_edad;
+
+ALTER TABLE Residente
+    ADD CONSTRAINT chk_residente_fecha_nac
+        CHECK (fecha_nac BETWEEN '1900-01-01' AND '2026-12-31'),
+    ADD CONSTRAINT chk_residente_ingreso
+        CHECK (fecha_ingreso >= fecha_nac),
+    ADD CONSTRAINT chk_residente_nombre
+        CHECK (TRIM(nombre) <> '' AND TRIM(apellidos) <> ''),
+    ADD CONSTRAINT chk_residente_ci
+        CHECK (TRIM(ci) <> '');
+
+ALTER TABLE Historial
+    ADD CONSTRAINT chk_historial_patologia
+        CHECK (TRIM(patologia) <> ''),
+    ADD CONSTRAINT chk_historial_responsable
+        CHECK (TRIM(responsable) <> ''),
+    ADD INDEX idx_historial_residente (id_residente, fecha);
+
+ALTER TABLE Usuario
+    ADD CONSTRAINT chk_usuario_nombre
+        CHECK (TRIM(usuario) <> ''),
+    ADD CONSTRAINT chk_usuario_hash
+        CHECK (CHAR_LENGTH(contrasena) = 64);
+
+ALTER TABLE Categoria
+    ADD CONSTRAINT chk_categoria_nombre
+        CHECK (TRIM(nombre) <> '');
+
+ALTER TABLE Proveedor
+    ADD CONSTRAINT chk_proveedor_nombre
+        CHECK (TRIM(nombre) <> ''),
+    ADD CONSTRAINT chk_proveedor_telefono
+        CHECK (telefono IS NULL OR telefono REGEXP '^[0-9+() -]{6,20}$');
+
+ALTER TABLE Insumo
+    ADD CONSTRAINT chk_insumo_stock_min
+        CHECK (stock_min >= 0),
+    ADD CONSTRAINT chk_insumo_nombre
+        CHECK (TRIM(nombre) <> ''),
+    ADD CONSTRAINT uq_insumo_nombre_categoria
+        UNIQUE (nombre, id_categoria);
