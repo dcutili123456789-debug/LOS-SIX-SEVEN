@@ -9,3 +9,4 @@ Desarrollamos la pantalla de inicio de sesión (login), realizando su conexión 
 Desarrollamos e integramos las diferentes ventanas del sistema: residentes, historial, suministros, movimientos y consultas. También mejoramos la conexión con la base de datos mediante los archivos `.env` y `db.py`, y realizamos la integración y verificación de la integridad de la base de datos para asegurar la correcta relación y consistencia de la información. Finalmente, utilizamos el archivo `main.py` para integrar los módulos y permitir el funcionamiento conjunto de las diferentes interfaces del sistema.
 ## 20 DE NOVIEMBRE DE 2026
 Realizamos la validación de datos del sistema, verificando que la información ingresada cumpla con los formatos y requisitos establecidos, además de comprobar la consistencia de los datos y su correcta comunicación con la base de datos.
+
