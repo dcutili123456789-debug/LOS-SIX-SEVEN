@@ -5,7 +5,7 @@ from ventanas.historial import Historial
 from ventanas.suministros import Suministros
 from ventanas.movimiento import Movimiento
 from ventanas.consultas import Consultas
-
+from ventanas.estadisticas import Estadisticas
 
 class App(tk.Tk):
     def __init__(self):
@@ -28,8 +28,8 @@ class App(tk.Tk):
         zona.pack(side="left", fill="both", expand=True)
         self.pantallas = {}
         lista = [("Residentes", Residentes), ("Historial", Historial),
-                 ("Suministros", Suministros), ("Movimiento", Movimiento),
-                 ("Consultas", Consultas)]
+                ("Suministros", Suministros), ("Movimiento", Movimiento),
+                ("Consultas", Consultas), ("Estadísticas", Estadisticas)]
         for nombre, clase in lista:
             p = clase(zona)
             p.place(x=0, y=0, relwidth=1, relheight=1)
