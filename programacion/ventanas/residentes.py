@@ -1,3 +1,4 @@
+from ventanas.estilo import formulario
 import tkinter as tk
 from tkinter import ttk, messagebox
 from db import conectar, fecha
@@ -10,17 +11,9 @@ CAMPOS = [("ci", "CI"), ("nombre", "Nombre(s)"), ("apellidos", "Apellido(s)"),
 
 class Residentes(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=20)
-        tk.Label(self, text="Registro de residentes", font=("Arial", 16, "bold")).pack(anchor="w")
-        self.e = {}
-        for clave, texto in CAMPOS:
-            tk.Label(self, text=texto).pack(anchor="w", pady=(8, 0))
-            self.e[clave] = tk.Entry(self, width=45)
-            self.e[clave].pack(anchor="w")
-        tk.Label(self, text="Sexo").pack(anchor="w", pady=(8, 0))
-        self.sexo = ttk.Combobox(self, values=["Femenino", "Masculino"], state="readonly", width=42)
-        self.sexo.pack(anchor="w")
-        tk.Button(self, text="Registrar", width=15, command=self.registrar).pack(anchor="w", pady=15)
+        super().__init__(padre)
+        self.e = formulario(self, 'Registro de residentes', CAMPOS[:4] + [("sexo", "Sexo")] + CAMPOS[4:], self.registrar, 'Residentes', {"sexo":["Femenino","Masculino"]}, ("contacto",))
+        self.sexo = self.e.pop("sexo")
 
     def refrescar(self):
         pass

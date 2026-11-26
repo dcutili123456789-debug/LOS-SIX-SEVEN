@@ -1,3 +1,4 @@
+from ventanas.estilo import formulario
 import tkinter as tk
 from tkinter import ttk, messagebox
 from db import conectar, consultar, fecha
@@ -9,19 +10,8 @@ CAMPOS = [("tipo", "Tipo (entrada o salida)"), ("lote", "Insumo y lote (muestra 
 
 class Movimiento(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=20)
-        tk.Label(self, text="Movimiento", font=("Arial", 16, "bold")).pack(anchor="w")
-        self.e = {}
-        for clave, texto in CAMPOS:
-            tk.Label(self, text=texto).pack(anchor="w", pady=(6, 0))
-            if clave == "tipo":
-                self.e[clave] = ttk.Combobox(self, values=["entrada", "salida"], state="readonly", width=42)
-            elif clave == "lote":
-                self.e[clave] = ttk.Combobox(self, state="readonly", width=60)
-            else:
-                self.e[clave] = tk.Entry(self, width=45)
-            self.e[clave].pack(anchor="w")
-        tk.Button(self, text="Registrar", width=15, command=self.registrar).pack(anchor="w", pady=12)
+        super().__init__(padre)
+        self.e = formulario(self, 'Movimiento', CAMPOS, self.registrar, 'Movimientos', {"tipo":["entrada","salida"],"lote":[]}, ("obs",))
 
     def refrescar(self):
         filas = consultar("SELECT l.id_lote, i.nombre, l.numero_lote, l.cantidad FROM Lote l "

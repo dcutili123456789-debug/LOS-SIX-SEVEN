@@ -1,3 +1,4 @@
+from ventanas.estilo import formulario
 import tkinter as tk
 from tkinter import messagebox
 from db import conectar, fecha
@@ -20,14 +21,8 @@ def buscar_o_crear(cur, tabla, col_id, nombre):
 
 class Suministros(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=20)
-        tk.Label(self, text="Suministros", font=("Arial", 16, "bold")).pack(anchor="w")
-        self.e = {}
-        for clave, texto in CAMPOS:
-            tk.Label(self, text=texto).pack(anchor="w", pady=(6, 0))
-            self.e[clave] = tk.Entry(self, width=45)
-            self.e[clave].pack(anchor="w")
-        tk.Button(self, text="Registrar", width=15, command=self.registrar).pack(anchor="w", pady=12)
+        super().__init__(padre)
+        self.e = formulario(self, 'Suministros', CAMPOS, self.registrar, 'Insumos', {}, ())
 
     def refrescar(self):
         pass

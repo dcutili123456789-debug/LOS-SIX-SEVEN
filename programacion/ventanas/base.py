@@ -5,7 +5,7 @@ from tkinter import ttk, messagebox
 
 import mysql.connector
 
-from db import formatear
+from db import mostrar as formatear
 
 
 def seguro(fn):

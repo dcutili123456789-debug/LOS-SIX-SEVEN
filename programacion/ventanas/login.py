@@ -1,3 +1,4 @@
+from ventanas.estilo import *
 import tkinter as tk
 from tkinter import messagebox
 from db import consultar, hash_clave
@@ -5,17 +6,18 @@ from db import consultar, hash_clave
 
 class Login(tk.Frame):
     def __init__(self, padre, al_entrar):
-        super().__init__(padre, padx=40, pady=40)
-        self.al_entrar = al_entrar
-        tk.Label(self, text="La Estancia", font=("Arial", 20, "bold")).pack()
-        tk.Label(self, text="Casa de asistencia al adulto mayor").pack(pady=(0, 15))
-        tk.Label(self, text="Usuario").pack(anchor="w")
-        self.usuario = tk.Entry(self, width=30)
-        self.usuario.pack()
-        tk.Label(self, text="Contraseña").pack(anchor="w", pady=(10, 0))
-        self.clave = tk.Entry(self, width=30, show="*")
-        self.clave.pack()
-        tk.Button(self, text="Ingresar", command=self.ingresar).pack(pady=15)
+        super().__init__(padre,bg=AZUL)
+        self.al_entrar=al_entrar
+        etiqueta(self,'La Estancia',bg=AZUL,fg=AMARILLO,font=(FUENTE,32,'bold')).pack(pady=(0,12))
+        etiqueta(self,'Casa de asistencia al adulto mayor',bg=AZUL,fg=BLANCO,font=(FUENTE,14)).pack(pady=(0,22))
+        card=tk.Frame(self,bg=BLANCO,padx=26,pady=22,highlightthickness=1,highlightbackground=BORDE); card.pack()
+        etiqueta(card,'Iniciar sesión',fg=TEXTO,font=(FUENTE,21,'bold')).pack(anchor='w',pady=(0,12))
+        etiqueta(card,'Usuario').pack(anchor='w')
+        self.usuario=entrada(card,width=30); self.usuario.pack(fill='x',ipady=10,pady=(5,14))
+        etiqueta(card,'Contraseña').pack(anchor='w')
+        self.clave=entrada(card,width=30,show='*'); self.clave.pack(fill='x',ipady=10,pady=(5,22))
+        boton(card,'Ingresar',self.ingresar,amarillo=True).pack(fill='x')
+        self.clave.bind('<Return>',lambda e:self.ingresar()); self.usuario.focus_set()
 
     def ingresar(self):
         try:

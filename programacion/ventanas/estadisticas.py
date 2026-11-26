@@ -1,3 +1,4 @@
+from ventanas.estilo import *
 import tkinter as tk
 from datetime import date
 from tkinter import ttk, messagebox
@@ -56,22 +57,22 @@ def calcular_edad(nacimiento):
 
 class Estadisticas(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=15)
-        tk.Label(self, text="Estadísticas", font=("Arial", 16, "bold")).pack(anchor="w")
+        super().__init__(padre)
+        card=pagina(self,"Estadísticas")
 
-        tk.Label(self, text="Ver gráfica de").pack(anchor="w", pady=(8, 0))
-        self.opcion = ttk.Combobox(self, values=list(CONSULTAS), state="readonly", width=40)
+        etiqueta(card, "Ver gráfica de").pack(anchor="w", pady=(8, 0))
+        self.opcion = ttk.Combobox(card, values=list(CONSULTAS), state="readonly", width=40)
         self.opcion.set("Residentes por sexo")
         self.opcion.pack(anchor="w")
         self.opcion.bind("<<ComboboxSelected>>", lambda e: self.refrescar())
 
         self.figura = Figure(figsize=(8, 3.4), dpi=90)
-        self.lienzo = FigureCanvasTkAgg(self.figura, master=self)
-        self.lienzo.get_tk_widget().pack(anchor="w", pady=8)
+        self.lienzo = FigureCanvasTkAgg(self.figura, master=card)
+        self.lienzo.get_tk_widget().pack(fill="both", expand=True, pady=8)
 
-        self.resumen = tk.Label(self, text="", justify="left")
+        self.resumen = etiqueta(card, "", justify="left", wraplength=720)
         self.resumen.pack(anchor="w")
-        self.edades = tk.Label(self, text="", justify="left")
+        self.edades = etiqueta(card, "", justify="left", wraplength=720)
         self.edades.pack(anchor="w", pady=(6, 0))
 
     def refrescar(self):
@@ -94,13 +95,13 @@ class Estadisticas(tk.Frame):
             porcentajes = [porcentaje(v, total) for v in valores]
 
             barras, pastel = self.figura.subplots(1, 2)
-            grafica = barras.bar(nombres, valores, color=[f"C{i}" for i in range(len(valores))])
+            grafica = barras.bar(nombres, valores, color=[AZUL, AMARILLO, "#6386BA", "#E2B85A", "#8297B4"][:len(valores)])
             barras.bar_label(grafica)
             barras.set_title("Cantidad")
             barras.tick_params(axis="x", labelrotation=30)
 
             etiquetas = [f"{n}\n{p:.1f}%" for n, p in zip(nombres, porcentajes)]
-            pastel.pie(valores, labels=etiquetas)
+            pastel.pie(valores, labels=etiquetas, colors=[AZUL, AMARILLO, "#6386BA", "#E2B85A", "#8297B4"])
             pastel.set_title("Porcentaje")
             self.figura.tight_layout()
             self.lienzo.draw()

@@ -1,3 +1,4 @@
+from ventanas.estilo import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -23,21 +24,19 @@ COLUMNAS = ["Nombre / Insumo", "CI / Lote", "Detalle", "Tipo", "Cantidad", "Fech
 
 class Consultas(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=20)
-        tk.Label(self, text="Consultas", font=("Arial", 16, "bold")).pack(anchor="w")
-        tk.Label(self, text="Consultar en").pack(anchor="w", pady=(8, 0))
-        self.donde = ttk.Combobox(self, values=list(CONSULTAS), state="readonly", width=42)
-        self.donde.set("Residentes")
-        self.donde.pack(anchor="w")
-        tk.Label(self, text="Buscar (CI, nombre, lote...)").pack(anchor="w", pady=(8, 0))
-        self.texto = tk.Entry(self, width=45)
-        self.texto.pack(anchor="w")
-        tk.Button(self, text="Buscar", width=15, command=self.buscar).pack(anchor="w", pady=10)
-        self.tabla = ttk.Treeview(self, columns=COLUMNAS, show="headings", height=12)
+        super().__init__(padre)
+        card=pagina(self,'Consultas'); f=tk.Frame(card,bg=BLANCO); f.pack(fill='x')
+        w=campos(f,[('donde','Consultar en'),('texto','Buscar (CI, nombre, lote...)')],{'donde':list(CONSULTAS)})
+        self.donde=w['donde']; self.texto=w['texto']; self.donde.set('Residentes')
+        boton(card,'Buscar',self.buscar).pack(anchor='w',padx=9,pady=18)
+        area=tk.Frame(card,bg=BLANCO); area.pack(fill='both',expand=True)
+        self.tabla=ttk.Treeview(area,columns=COLUMNAS,show='headings',height=10)
         for c in COLUMNAS:
-            self.tabla.heading(c, text=c)
-            self.tabla.column(c, width=105)
-        self.tabla.pack(fill="both", expand=True)
+            self.tabla.heading(c,text=c); self.tabla.column(c,width=105,minwidth=75)
+        y=ttk.Scrollbar(area,orient='vertical',command=self.tabla.yview); x=ttk.Scrollbar(area,orient='horizontal',command=self.tabla.xview)
+        self.tabla.configure(yscrollcommand=y.set,xscrollcommand=x.set)
+        y.pack(side='right',fill='y'); x.pack(side='bottom',fill='x'); self.tabla.pack(fill='both',expand=True)
+        self.texto.bind('<Return>',lambda e:self.buscar())
 
     def refrescar(self):
         pass

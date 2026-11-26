@@ -1,3 +1,4 @@
+from ventanas.estilo import formulario
 import tkinter as tk
 from tkinter import ttk, messagebox
 from db import conectar, consultar, fecha
@@ -10,17 +11,8 @@ CAMPOS = [("ci", "Residente (CI)"), ("fecha", "Fecha de registro (dd/mm/aaaa)"),
 
 class Historial(tk.Frame):
     def __init__(self, padre):
-        super().__init__(padre, padx=20, pady=20)
-        tk.Label(self, text="Historial clínico", font=("Arial", 16, "bold")).pack(anchor="w")
-        self.e = {}
-        for clave, texto in CAMPOS:
-            tk.Label(self, text=texto).pack(anchor="w", pady=(6, 0))
-            if clave == "medicamento":
-                self.e[clave] = ttk.Combobox(self, state="readonly", width=42)
-            else:
-                self.e[clave] = tk.Entry(self, width=45)
-            self.e[clave].pack(anchor="w")
-        tk.Button(self, text="Registrar", width=15, command=self.registrar).pack(anchor="w", pady=12)
+        super().__init__(padre)
+        self.e = formulario(self, 'Historial clínico', CAMPOS, self.registrar, 'Historial', {"medicamento":[]}, ())
 
     def refrescar(self):
         filas = consultar("SELECT i.nombre FROM Medicamento m JOIN Insumo i ON i.id_insumo = m.id_insumo")
